@@ -226,33 +226,8 @@
 
 (define flatten
   (lambda (l)
-    (letrec
-        (
-         (rec
-             (lambda (l l1)
-               (if (null? l1)
-                   (if (null? (cdr l))
-                       empty
-                       (rec (cdr l) (cdr l))
-                       )
-                   (if (list? (car l1))
-                       (rec l (car l1))
-                       (cons (car l1) (rec l (cdr l1)))
-                       )
-                   )
-               )
-           )
-          
-         )
-      (rec l l)
-      )
+    (
+     
+     )
     )
   )
-
-;Función unzip
-;proposito:
-;List -> List, List: Procedimiento que retorna dos listas resultantes de
-;descomponer la lista original en dos, la primera con el primer elemento de
-;las tuplas y la segunda con el segundo elemento de las tuplas.
-;usage: (unzip List) = List, List
-
