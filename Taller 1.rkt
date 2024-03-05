@@ -321,3 +321,42 @@
       )
     )
   )
+
+
+;Función path
+;proposito:
+;Number, BST -> List: Procedimiento que retorna una lista con la ruta a tomar
+;desde el nodo raíz del árbol binario de búsqueda BST hasta el número n.
+;usage: (path n BST) = List
+
+(define path
+  (lambda (n BST)
+    (if (null? BST)
+        empty
+        (if (= n (car BST))
+            empty
+            (if (< n (car BST))
+                (cons 'left (path n (cadr BST)))
+                (cons 'right (path n (caddr BST)))
+                )
+            )
+        )
+    )
+  )
+
+;Función inorder
+;proposito:
+;BST -> List: Procedimiento que retorna una lista con los elementos del árbol binario
+;correspondientes a recorrerlo inorder. En el recorrido inorder los nodos se visitan
+;de la forma (izquierda, raíz, derecha).
+;usage: (inorder BST) = List
+
+(define inorder
+  (lambda (BST)
+    (if (null? BST)
+        empty
+        (append (inorder (cadr BST))
+                (cons (car BST) (inorder (caddr BST))))
+        )
+    )
+  )
