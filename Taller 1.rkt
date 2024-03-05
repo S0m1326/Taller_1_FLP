@@ -1,4 +1,7 @@
 #lang eopl
+;Sebastián Orrego Marín - 1941144
+;Franklin Aguirre ...
+
 
 ;Función invert
 ;proposito:
@@ -15,6 +18,9 @@
         )
     )
   )
+
+;Pruebas:
+
 
 ;Función down
 ;proposito:
@@ -33,11 +39,14 @@
     )
   )
 
+;Pruebas:
+
+
 ;Función list-set
 ;proposito:
 ;List, n, x -> List: Procedimiento que sustituye en la posición n de una lista por el
 ;elemento x
-;usage: (list-set List, n, x) = List
+;usage: (list-set List n x) = List
 
 (define list-set
   (lambda (l n x)
@@ -60,11 +69,14 @@
     )
   )
 
+;Pruebas:
+
+
 ;Función filter-in
 ;proposito:
 ;P, List -> List: Procedimiento que retorna una lista que
 ;contiene los elementos que pertenecen a L y que satisfacen el predicado P.
-;usage: (filter-in List, P) = List
+;usage: (filter-in List P) = List
 
 (define filter-in
   (lambda (P l)
@@ -78,11 +90,14 @@
     )
   )
 
+;Pruebas:
+
+
 ;Función mix
 ;proposito:
 ;List1, List2 -> List: Procedimiento que retorna una sola lista con los
 ;elementos cruzados entre ambas listas
-;usage: (mix List, List2) = List
+;usage: (mix List List2) = List
 
 (define mix
   (lambda (l1 l2)
@@ -95,12 +110,15 @@
     )
   )
 
+;Pruebas:
+
+
 ;Función swapper
 ;proposito:
 ;E1, E2, List -> List: Procedimiento que  retorna una lista similar a L,
 ;sólo que cada ocurrencia anterior de E1 será reemplazada por E2
 ;y cada ocurrencia anterior de E2 será reemplazada por E1.
-;usage: (swapper E1, E2, List) = List
+;usage: (swapper E1 E2 List) = List
 
 (define swapper
   (lambda (E1 E2 l)
@@ -120,11 +138,14 @@
     )
   )
 
+;Pruebas:
+
+
 ;Función cartesian-product
 ;proposito:
 ;List1, List2 -> List: Procedimiento que retorna una lista de tuplas que representa
 ;el producto cartesiano entre L1 y L2
-;usage: (cartesian-product List1, List2) = List
+;usage: (cartesian-product List1 List2) = List
 
 (define cartesian-product
   (lambda (l1 l2)
@@ -154,13 +175,16 @@
     )
   )
 
+;Pruebas:
+
+
 ;Función mapping
 ;proposito:
 ;F, List1, List2 -> List: Procedimiento que La función debe retornar una lista de
 ;pares (a,b) siendo a elemento de L1 y b elemento de L2, cumpliéndose la
 ;propiedad que al aplicar la función unaria F con el argumento a, debe arrojar
 ;el número b.
-;usage: (mapping F, List1, List2) = List
+;usage: (mapping F List1 List2) = List
 
 (define mapping
   (lambda (F l1 l2)
@@ -192,6 +216,9 @@
     )
   )
 
+;Pruebas:
+
+
 ;Función reverse
 ;proposito:
 ;List -> List: Procedimiento que retorna la misma lista con los elementos
@@ -217,6 +244,9 @@
       )
     )
   )
+
+;Pruebas:
+
 
 ;Función flatten
 ;proposito:
@@ -248,6 +278,9 @@
       )
     )
   )
+
+;Pruebas:
+
 
 ;Función unzip
 ;proposito:
@@ -282,12 +315,15 @@
     )
   )
 
+;Pruebas:
+
+
 ;Función scan
 ;proposito:
 ;List, n, F -> List, List: Procedimiento que retorna una lista con cada
 ;resultado parcial de aplicara la función binaria F con cada elemento
 ;de la lista de forma acumulativa empezando con el elemento n.
-;usage: (scan List, n, F) = List
+;usage: (scan List n F) = List
 
 (define scan
   (lambda (l n F)
@@ -298,11 +334,14 @@
     )
   )
 
+;Pruebas:
+
+
 ;Función operate
 ;proposito:
 ;lrators, lrands -> Int: Procedimiento que retorna el resultado de
 ;aplicar sucesivamente las operaciones en lrators a los valores en lrands.
-;usage: (operate List, n, F) = Int
+;usage: (operate lrators lrands) = Int
 
 (define operate
   (lambda (lrators lrands)
@@ -321,6 +360,8 @@
       )
     )
   )
+
+;Pruebas:
 
 
 ;Función path
@@ -344,12 +385,15 @@
     )
   )
 
-;Función inorder
+;Pruebas:
+
+
+;Función in-order
 ;proposito:
 ;BST -> List: Procedimiento que retorna una lista con los elementos del árbol binario
 ;correspondientes a recorrerlo inorder. En el recorrido inorder los nodos se visitan
 ;de la forma (izquierda, raíz, derecha).
-;usage: (inorder BST) = List
+;usage: (in-order BST) = List
 
 (define inorder
   (lambda (BST)
@@ -360,3 +404,94 @@
         )
     )
   )
+
+;Pruebas:
+
+
+;Función Operar-binarias
+;proposito:
+;operacionB -> Int: Procedimiento que retorna el resultado de hacer
+;las operaciones suma, resta y multiplicación correspondientes.
+;usage: (Operar-binarias operacionB) = Int
+
+(define Operar-binarias
+  (lambda (operacionB)
+    (if (number? operacionB)
+        operacionB
+        (if (list? operacionB)
+            (cond
+              [(eq? (cadr operacionB) 'suma) (+ (Operar-binarias (car operacionB)) (Operar-binarias (car (cddr operacionB))))]
+              [(eq? (cadr operacionB) 'resta) (- (Operar-binarias (car operacionB)) (Operar-binarias (car (cddr operacionB))))]
+              [(eq? (cadr operacionB) 'multiplica) (* (Operar-binarias (car operacionB)) (Operar-binarias (car (cddr operacionB))))]
+              )
+            ("Error")
+          )
+        )
+    )
+  )
+
+;Pruebas:
+
+
+;Función prod-scalar-matriz
+;proposito:
+;mat, vec -> List: Procedimiento que retorna el resultado de realizar la
+;multiplicación matriz por vector.
+;usage: (prod-scalar-matriz mat vec) = List
+
+(define prod-scalar-matriz
+  (lambda (mat vec)
+    (if (null? mat)
+        empty
+        (letrec
+            (
+             (suma
+              (lambda (l1 l2)
+                (if (null? l1)
+                    empty
+                    (cons (* (car l1) (car l2)) (suma (cdr l1) (cdr l2)))
+                    )
+                )
+              )
+             )
+          (cons (suma (car mat) vec) (prod-scalar-matriz (cdr mat) vec))
+          )
+        )
+    )
+  )
+
+;Pruebas:
+
+
+;Función pascal
+;proposito:
+;N -> List: Procedimiento que retorna la fila N del triangulo de Pascal.
+;usage: (pascal N) = List
+
+(define pascal
+  (lambda (N)
+    (letrec
+        (
+         (nuevaFila
+          (lambda (cont filaAnt)
+            (if (= cont N)
+                filaAnt
+                (nuevaFila (+ cont 1) (suma (flatten (list (list 0) filaAnt)) (flatten (list filaAnt (list 0)))))
+                )
+            )
+          )
+         (suma
+          (lambda (l1 l2)
+            (if (null? l1)
+                empty
+                (cons (+ (car l1) (car l2)) (suma (cdr l1) (cdr l2)))
+                )
+            )
+          )
+         )
+      (nuevaFila 1 '(1))
+      )
+    )
+  )
+
+;Pruebas:
