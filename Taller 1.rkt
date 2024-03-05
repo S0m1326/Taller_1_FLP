@@ -256,3 +256,68 @@
 ;las tuplas y la segunda con el segundo elemento de las tuplas.
 ;usage: (unzip List) = List, List
 
+(define unzip
+  (lambda (l)
+    (letrec
+        (
+         (rec1
+          (lambda (l1)
+            (if (null? l1)
+                empty
+                (cons (cdar l1) (rec1 (cdr l1)))
+                )
+            )
+          )
+         (rec2
+          (lambda (l2)
+            (if (null? l2)
+                empty
+                (cons (caar l2) (rec2 (cdr l2)))
+                )
+            )
+          )
+         )
+      (cons (rec2 l) (list (flatten (rec1 l))))
+      )
+    )
+  )
+
+;Función scan
+;proposito:
+;List, n, F -> List, List: Procedimiento que retorna una lista con cada
+;resultado parcial de aplicara la función binaria F con cada elemento
+;de la lista de forma acumulativa empezando con el elemento n.
+;usage: (scan List, n, F) = List
+
+(define scan
+  (lambda (l n F)
+    (if (null? l)
+        (cons n '())
+        (cons n (scan (cdr l) (F n (car l)) F))
+        )
+    )
+  )
+
+;Función operate
+;proposito:
+;lrators, lrands -> Int: Procedimiento que retorna el resultado de
+;aplicar sucesivamente las operaciones en lrators a los valores en lrands.
+;usage: (operate List, n, F) = Int
+
+(define operate
+  (lambda (lrators lrands)
+    (letrec
+        (
+         (rec
+             (lambda (l1 l2 cont)
+               (if (null? l1)
+                   cont
+                   (rec (cdr l1) (cdr l2) ((car l1) cont (car l2)))
+                   )
+               )
+           )
+         )
+      (rec (cdr lrators) (cddr lrands) ((car lrators) (car lrands) (cadr lrands)))
+      )
+    )
+  )
